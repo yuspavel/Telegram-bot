@@ -15,7 +15,7 @@ type TelegramAdapter struct {
 func NewTelegramAdapter(token string, chatID int64) (*TelegramAdapter, error) {
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
-		return nil, errors.New("ошибка инициализации telegram-бота")
+		return nil, errors.New("ошибка инициализации telegram-бота" + err.Error())
 	}
 
 	return &TelegramAdapter{bot: bot, chatID: chatID}, nil

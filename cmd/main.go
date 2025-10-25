@@ -40,7 +40,7 @@ func main() {
 	quoteAPI := adapters.NewForismaticApi() //-----------------------------------------Создаем экземпляр адаптера (API)
 	telegramAPI, err := adapters.NewTelegramAdapter(config.BotToken, config.ChatId)
 	if err != nil {
-		logger.Error("Невозможно создать telegram адаптер")
+		logger.Error("Невозможно создать telegram адаптер", "error", err)
 		os.Exit(1)
 	}
 
