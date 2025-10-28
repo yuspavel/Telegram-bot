@@ -39,24 +39,24 @@ func (f *ForismaticApi) GetRandomQuote(ctx context.Context) (*entities.Quote, er
 	}
 
 	var qouteResp struct {
-		quoteText   string
-		quoteAuthor string
-		senderName  string
-		senderLink  string
+		QuoteText   string `json:"quoteText"`
+		QuoteAuthor string `json:"quoteAuthor"`
+		SenderName  string `json:"senderName"`
+		SenderLink  string `jsnon:"senderLink"`
 	}
 
-	if err := json.NewDecoder(req.Body).Decode(&qouteResp); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&qouteResp); err != nil {
 		return nil, errors.New("ошибка декодирования JSON")
 	}
 
-	if qouteResp.quoteText == "" {
+	if qouteResp.QuoteText == "" {
 		return nil, errors.New("получена пустая заметка")
 	}
 
-	author := qouteResp.quoteAuthor
+	author := qouteResp.QuoteAuthor
 	if author == "" {
 		author = "Неизвестный автор"
 	}
 
-	return &entities.Quote{Text: qouteResp.quoteText, Author: author}, nil
+	return &entities.Quote{Text: qouteResp.QuoteText, Author: author}, nil
 }

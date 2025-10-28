@@ -24,8 +24,9 @@ func main() {
 
 	logger := SetupLogger()
 
-	if err := godotenv.Load(); err != nil { //----Функция Load (если без параметров) находит .env файл в текущей директории и создает в системе описанные в нем переменные окружения со значениями
+	if err := godotenv.Load("vars.env"); err != nil { //----Функция Load (если без параметров) находит .env файл в текущей директории и создает в системе описанные в нем переменные окружения со значениями
 		logger.Warn("Файл .env не найден", "error", err)
+		return
 	}
 
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM) //-----------Контекст для безопасного завершения приложения
@@ -51,7 +52,7 @@ func main() {
 	c := cron.New()
 	defer c.Stop()
 
-	_, err = c.AddFunc("0 8,9,10,11,12,13,14,15,16,20 * * *", func() {
+	_, err = c.AddFunc("0 8,9,10,11,12,13,14,15,16,20,21,22 * * *", func() {
 
 		taskCtx := context.Background()
 
